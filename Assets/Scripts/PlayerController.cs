@@ -28,4 +28,9 @@ public class PlayerController : MonoBehaviour
     {
         player.MoveTo(_worldPosition);
     }
+
+    private void ditmehuy()
+    {
+
+    }
 }
