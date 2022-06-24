@@ -4,8 +4,28 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float timeElapsed = 0.0f;
-    private float speed = 1.4f;
+    [SerializeField] Collider2D boundary;
+
+    private float _timeElapsed = 0.0f;
+    private float _speed = 1.4f;
+    private Collider2D _playerCollider;
+    private float _playerWidth;
+    private float _playerHeight;
+
+    private void Awake()
+    {
+        _playerCollider = transform.GetComponent<Collider2D>();
+        _playerWidth = _playerCollider.bounds.size.x / 2;
+        _playerHeight = _playerCollider.bounds.size.y / 2;
+    }
+
+    private void Update()
+    {
+        Vector3 viewPos = transform.position;
+        viewPos.x = Mathf.Clamp(viewPos.x, boundary.bounds.min.x + _playerWidth, boundary.bounds.max.x - _playerWidth);
+        viewPos.y = Mathf.Clamp(viewPos.y, boundary.bounds.min.y + _playerHeight, boundary.bounds.max.y - _playerHeight); `
+        transform.position = viewPos;
+    }
 
     public void MoveTo(Vector2 position)
     {
@@ -13,16 +33,15 @@ public class Player : MonoBehaviour
         if (Mathf.Round(distance * 1000) == 0)
         {
             transform.position = position;
-            timeElapsed = 0.0f;
+            _timeElapsed = 0.0f;
         }
 
-        var moveDuration = distance * 100 / speed;
+        var moveDuration = distance * 100 / _speed;
 
-        if (timeElapsed < moveDuration)
+        if (_timeElapsed < moveDuration)
         {
-            transform.position = Vector2.Lerp(transform.position, position, timeElapsed / moveDuration);
-            timeElapsed += Time.deltaTime;
+            transform.position = Vector2.Lerp(transform.position, position, _timeElapsed / moveDuration);
+            _timeElapsed += Time.deltaTime;
         }
-
     }
 }
