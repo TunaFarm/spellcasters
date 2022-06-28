@@ -28,6 +28,10 @@ public class WsClient : MonoBehaviour
             return;
         }
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _ws.Send("Hello from Game Client");
+        }
 
     }
 }
