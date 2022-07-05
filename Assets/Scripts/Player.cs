@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : BasePlayerController
 {
     [SerializeField] Collider2D boundary;
 
@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     {
         Vector3 viewPos = transform.position;
         viewPos.x = Mathf.Clamp(viewPos.x, boundary.bounds.min.x + _playerWidth, boundary.bounds.max.x - _playerWidth);
-        viewPos.y = Mathf.Clamp(viewPos.y, boundary.bounds.min.y + _playerHeight, boundary.bounds.max.y - _playerHeight); `
+        viewPos.y = Mathf.Clamp(viewPos.y, boundary.bounds.min.y + _playerHeight, boundary.bounds.max.y - _playerHeight);
         transform.position = viewPos;
     }
 
